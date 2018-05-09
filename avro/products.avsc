@@ -1,0 +1,37 @@
+{
+  "type" : "record",
+  "name" : "products",
+  "doc" : "Sqoop import of products",
+  "fields" : [ {
+    "name" : "productCode",
+    "type" : [ "null", "string" ],
+    "default" : null,
+    "columnName" : "productCode",
+    "sqlType" : "12"
+  }, {
+    "name" : "productName",
+    "type" : [ "null", "string" ],
+    "default" : null,
+    "columnName" : "productName",
+    "sqlType" : "12"
+  }, {
+    "name" : "productLine",
+    "type" : [ "null", "string" ],
+    "default" : null,
+    "columnName" : "productLine",
+    "sqlType" : "12"
+  }, {
+    "name" : "buyPrice",
+    "type" : [ "null", "string" ],
+    "default" : null,
+    "columnName" : "buyPrice",
+    "sqlType" : "3"
+  }, {
+    "name" : "MSRP",
+    "type" : [ "null", "string" ],
+    "default" : null,
+    "columnName" : "MSRP",
+    "sqlType" : "3"
+  } ],
+  "tableName" : "products"
+}
