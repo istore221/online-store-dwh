@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<workflow-app xmlns="uri:oozie:workflow:0.5" name="online-store-wf">
+    <start to="sqoop-import-products"/>
+    <action name="sqoop-import-products">
+        <sqoop xmlns="uri:oozie:sqoop-action:0.2">
+            <job-tracker>${jobTracker}</job-tracker>
+            <name-node>${nameNode}</name-node>
+            <arg>import</arg>
+            <arg>-Dmapreduce.job.user.classpath.first=true</arg>
+            <arg>--connect</arg>
+            <arg>jdbc:mysql://sandbox-hdp.hortonworks.com/online_store</arg>
+            <arg>--driver</arg>
+            <arg>com.mysql.jdbc.Driver</arg>
+            <arg>--username</arg>
+            <arg>root</arg>
+            <arg>--password</arg>
+            <arg>hadoop</arg>
+            <arg>--table</arg>
+            <arg>products</arg>
+            <arg>--m</arg>
+            <arg>1</arg>
+            <arg>--columns</arg>
+            <arg>productCode, productName, productLine, buyPrice, MSRP</arg>
+            <arg>--split-by</arg>
+            <arg>productCode</arg>
+            <arg>--as-avrodatafile</arg>
+            <arg>--target-dir</arg>
+            <arg>/user/maria_dev/online_store/stag/products/imported_date=2017-05-05</arg>
+        </sqoop>
+        <ok to="end"/>
+        <error to="Kill"/>
+    </action>
+    <kill name="Kill">
+        <message>Action failed, error message[${wf:errorMessage(wf:lastErrorNode())}]</message>
+    </kill>
+    <end name="end"/>
+</workflow-app>

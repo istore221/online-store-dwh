@@ -10,13 +10,13 @@ USE online_store_stag;
 
 -- staging tables --
 
-CREATE EXTERNAL TABLE products
+CREATE EXTERNAL TABLE IF NOT EXISTS products
 PARTITIONED BY (imported_date STRING)
 ROW FORMAT SERDE 'org.apache.hadoop.hive.serde2.avro.AvroSerDe'
 STORED AS INPUTFORMAT 'org.apache.hadoop.hive.ql.io.avro.AvroContainerInputFormat'
 OUTPUTFORMAT 'org.apache.hadoop.hive.ql.io.avro.AvroContainerOutputFormat'
-LOCATION 'hdfs:///user/athena_admin/online_store/stag/products'
-TBLPROPERTIES ('avro.schema.url'='hdfs:///user/athena_admin/online_store/avro_schemas/products/v1/products.avsc');
+LOCATION '/user/maria_dev/online_store/stag/products'
+TBLPROPERTIES ('avro.schema.url'='/user/maria_dev/online_store/avro_schemas/products/products_v1.avsc');
 
 
 

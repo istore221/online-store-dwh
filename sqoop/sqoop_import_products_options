@@ -1,13 +1,16 @@
-import
+#sqoop import -Dmapreduce.job.user.classpath.first=true --options-file sqoop_import_products_options
 
 --connect
-jdbc:mysql://admin.nable.cloudera.abc/athenadb
+jdbc:mysql://sandbox-hdp.hortonworks.com/online_store
+
+--driver
+com.mysql.jdbc.Driver
 
 --username
-athenauser
+root
 
 --password
-P@$$w0rd
+hadoop
 
 --table
 products
@@ -21,20 +24,7 @@ productCode, productName, productLine, buyPrice, MSRP
 --split-by
 productCode
 
---hcatalog-database
-online_store_stag
-
--hcatalog-table
-products
-
---hive-partition-key
-DATE
-
---hive-partition-value
-2017-05-05
-
---outdir
-/home/athena_admin/online_store/avro_schemas/products/v1
+--as-avrodatafile
 
 --target-dir
-hdfs:///user/athena_admin/online_store/staging/products
+/user/maria_dev/online_store/stag/products/imported_date=2017-05-05
